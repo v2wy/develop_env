@@ -1,0 +1,11 @@
+FROM  tomcat:7-jre7-alpine
+MAINTAINER stian
+ARG ANT_VERSION=1.9.15
+ARG BASE_URL=http://mirrors.tuna.tsinghua.edu.cn/apache//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz
+RUN sed -i \
+        's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' \
+        /etc/apk/repositories && apk update && apk add vim
+COPY ext.sh /
+RUN chmod a+x /ext.sh \
+    && /ext.sh
+WORKDIR /var/www/http/romeo/

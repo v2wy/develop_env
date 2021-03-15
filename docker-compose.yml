@@ -1,0 +1,144 @@
+version: "3.8"
+
+services:
+  php7.1:
+    build:
+      context: ./php7.1/
+      dockerfile: dockerfile
+    volumes:
+      - ./php7.1/sources.list:/etc/apt/sources.list
+      - ./php7.1/etc:/usr/local/etc
+      - ${LOCAL_CODE_ROOT}:/var/www/http
+    networks:
+      - server
+    container_name: php7.1-server
+    ports:
+      - 9001:9000
+    restart: always
+#  php7.2:
+#    build:
+#      context: ./php7.2/
+#      dockerfile: dockerfile
+#    volumes:
+#      - ./php7.2/sources.list:/etc/apt/sources.list
+#      - ./php7.2/etc:/usr/local/etc
+#      - ${LOCAL_CODE_ROOT}:/var/www/http
+#    networks:
+#      - server
+#    container_name: php7.2-server
+#    ports:
+#      - 9002:9000
+#    restart: always
+#  php7.3:
+#    build:
+#      context: ./php7.3/
+#      dockerfile: dockerfile
+#    volumes:
+#      - ./php7.3/sources.list:/etc/apt/sources.list
+#      - ./php7.3/etc:/usr/local/etc
+#      - ${LOCAL_CODE_ROOT}:/var/www/http
+#    networks:
+#      - server
+#    container_name: php7.3-server
+#    ports:
+#      - 9003:9000
+#    restart: always
+  php7.4:
+    build:
+      context: ./php7.4/
+      dockerfile: dockerfile
+    volumes:
+      - ./php7.4/sources.list:/etc/apt/sources.list
+      - ./php7.4/etc:/usr/local/etc
+      - ${LOCAL_CODE_ROOT}:/var/www/http
+    networks:
+      - server
+    container_name: php7.4-server
+    ports:
+      - 9004:9000
+    restart: always
+  nginx:
+    build:
+      context: ./nginx/
+      dockerfile: dockerfile
+    ports:
+      - 80:80
+    networks:
+      - server
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/sources.list:/etc/apt/sources.list
+      - ${LOCAL_CODE_ROOT}:/var/www/http
+      - ./log/nginx:/var/log/nginx
+    container_name: nginx-server
+    restart: always
+#  tomcat7:
+#    build:
+#      context: ./tomcat7/
+#      dockerfile: dockerfile
+#    restart: always
+#    networks:
+#      - server
+#    volumes:
+#      - ${LOCAL_CODE_ROOT}:/var/www/http
+#    ports:
+#      - 8888:8080
+#    container_name: tomcat7-server
+#  openjdk7:
+#    build:
+#      context: ./openjdk7/
+#      dockerfile: dockerfile
+#    restart: always
+#    networks:
+#      - server
+#    volumes:
+#      - ${LOCAL_CODE_ROOT}:/var/www/http
+#    container_name: openjdk7-server
+#  redis:
+#    build:
+#      context: ./redis/
+#      dockerfile: dockerfile
+#    restart: always
+#    networks:
+#      - server
+#    volumes:
+#      - ${REDIS_DATA_PATH}:/data
+#    ports:
+#    - 6379:6379
+#    container_name: redis-server
+# node:
+#   build:
+#     context: ./node/
+#     dockerfile: dockerfile
+#   restart: always
+#   networks:
+#     - server
+#   volumes:
+#     - ${LOCAL_CODE_ROOT}:/var/www/http
+#   working_dir: /var/www/http/azgys_front
+#   ports:
+#     - 9529
+#   command: "npm run dev"
+#   container_name: node-server
+#  consul:
+#    build:
+#      context: ./consul/
+#      dockerfile: dockerfile
+#    volumes:
+#      - ./consul/conf:/consul/conf
+#      - ${CONSUL_DATA_PATH}:/consul/data
+#    networks:
+#      - server
+#    container_name: consul1.0
+#    ports:
+#      - 8500:8500
+#    restart: always
+networks:
+  server:
+#
+#镜像加速
+#{
+#  "registry-mirrors": ["https://0pmg10rg.mirror.aliyuncs.com"]
+#}
+#
+#
